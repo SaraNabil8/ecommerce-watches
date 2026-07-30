@@ -1,4 +1,4 @@
-<?php
+9<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('watches', function (Blueprint $table) {
             $table->id();
+            $table->string('model');
+            $table->string('brand');
+            $table->text('description')->nullable();
+            $table->decimal('price',10,2);
+            $table->integer('stock')->default(0);
+            $table->string('image');
             $table->timestamps();
         });
     }
