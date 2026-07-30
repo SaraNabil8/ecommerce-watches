@@ -15,20 +15,44 @@ Route::delete('/watches/{watch}', [WatchController::class, 'destroy'])->name('wa
 
 
 
-
+//ADMIN   EDITOR   USER 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', [WatchController::class, 'home'])->name('home');
+Route::get('/categories', [WatchController::class, 'categories'])->name('categories');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('watches', WatchController::class);
+      //categories a ajouter plus tard 
 });
+//ADMIN 
+Route::middleware('admin')->group(function () {
+ 
+    Route::resource('watches', WatchController::class);
+    //categories a ajouter plus tard 
+    Route::get('/admin/dashboard', function () {
+    return 'Hi Administrator';
+})->name('admin_dashboard');
+});
+
+Route::middleware('editor')->group(function () {
+ 
+    Route::get('/editor/dashboard', function () {
+    return 'Hi Editor';
+})->name('editor_dashboard');
+});
+
 
 require __DIR__.'/auth.php';

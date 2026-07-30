@@ -5,9 +5,17 @@ use App\Models\Watch;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 class WatchController extends Controller
 {
+
+public function home()
+{
+    $watches = Watch::latest()->take(6)->get();
+    return view('welcome', compact('watches'));
+}
+
+
     /**
      * Display a listing of the resource.
      */
@@ -89,5 +97,12 @@ public function destroy(Watch $watch)
 
     return redirect()->route('watches.index')
         ->with('success', 'Watch deleted successfully!');
+}
+
+
+public function categories()
+{
+    $categories = Category::all();
+    return view('categories', compact('categories'));
 }
 }
