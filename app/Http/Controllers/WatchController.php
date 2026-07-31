@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Watch;
 
-use App\Models\Product;
+
 use Illuminate\Http\Request;
 use App\Models\Category;
 class WatchController extends Controller
@@ -27,24 +27,28 @@ public function home()
     /**
      * Show the form for creating a new resource.
      */
-  public function create()
-    {
-        return view('watches.create');
-    }
+public function create()
+{
+    $categories = Category::all();
+    return view('watches.create', compact('categories'));
+}
 
 public function store(Request $request)
 {
     $request->validate([
         'model' => 'required|string|max:255',
         'brand' => 'required|string|max:255',
+         'category_id' => 'nullable|exists:categories,id',
         'price' => 'required|numeric',
         'stock' => 'required|integer',
         'description' => 'nullable|string',
         'image' => 'required|image',
+
     ]);
 
     $data = $request->all();
 
+   
     if ($request->hasFile('image')) {
         $data['image'] = $request->file('image')->store('watches', 'public');
     }
@@ -63,13 +67,16 @@ public function show(Watch $watch)
     return view('watches.show', compact('watch'));
 }
 
-   public function edit(Watch $watch)
+public function edit(Watch $watch)
 {
-    return view('watches.edit', compact('watch'));
+    $categories = Category::all();
+    return view('watches.edit', compact('watch', 'categories'));
 }
+
 
 public function update(Request $request, Watch $watch)
 {
+      $categories = Category::all();
     $request->validate([
         'model' => 'required|string|max:255',
         'brand' => 'required|string|max:255',
@@ -77,6 +84,7 @@ public function update(Request $request, Watch $watch)
         'stock' => 'required|integer|min:0',
         'description' => 'nullable|string',
         'image' => 'nullable|image|max:2048',
+         'category_id' => 'nullable|exists:categories,id',
     ]);
 
     $data = $request->all();
@@ -98,11 +106,9 @@ public function destroy(Watch $watch)
     return redirect()->route('watches.index')
         ->with('success', 'Watch deleted successfully!');
 }
-
-
 public function categories()
 {
     $categories = Category::all();
-    return view('categories', compact('categories'));
+    return view('categories.index', compact('categories'));
 }
 }

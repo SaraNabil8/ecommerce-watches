@@ -135,6 +135,18 @@
             <textarea name="description" rows="4">{{ old('description') }}</textarea>
         </div>
 
+            <div class="field">
+    <label>Category</label>
+    <select name="category_id" id="category_id" class="form-select">
+        <option value="">Please choose your category</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                {{ $category->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
         <div class="field">
             <label>Image</label>
             <input type="file" name="image">

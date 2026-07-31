@@ -8,172 +8,234 @@
         * {
             box-sizing: border-box;
         }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Georgia', serif;
             margin: 0;
             padding: 0;
-            color: #333;
-            background: #fff;
+            color: #2b2b2b;
+            background: #faf9f6;
         }
 
         nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 40px;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #e7e3da;
         }
+
         nav .logo {
-            font-weight: bold;
-            font-size: 18px;
+            font-size: 19px;
+            letter-spacing: 1px;
+            color: #1f1f1f;
         }
+
         nav .links {
             display: flex;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
+
         nav .links a {
-            margin-left: 20px;
+            margin-left: 24px;
             text-decoration: none;
-            color: #333;
-            font-size: 14px;
+            color: #6b6b6b;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        nav .links a:hover {
-            color: #2563eb;
-        }
+
+        nav .links a:hover,
         nav .links a.active {
-            color: #2563eb;
-            font-weight: bold;
+            color: #a9762f;
         }
+
         nav .links form {
             display: inline;
         }
+
         nav .links button {
             background: none;
             border: none;
-            color: #333;
-            font-size: 14px;
+            color: #6b6b6b;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             cursor: pointer;
             padding: 0;
-            margin-left: 20px;
+            margin-left: 24px;
             font-family: inherit;
         }
+
         nav .links button:hover {
-            color: #2563eb;
+            color: #a9762f;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 50px 20px 80px;
         }
+
         h1 {
-            font-size: 26px;
-            margin-bottom: 24px;
+            font-weight: 400;
+            font-size: 30px;
+            letter-spacing: 1px;
+            margin: 0 0 36px;
+            color: #1f1f1f;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 48px;
+            height: 2px;
+            background: #a9762f;
+            margin-top: 12px;
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 24px;
         }
+
         .card {
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid #e7e3da;
+            border-radius: 4px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: box-shadow 0.2s;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
         }
+
         .card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #a9762f;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transform: translateY(-3px);
         }
-        .card img {
+
+        .card-image {
+            position: relative;
             width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background: #f3f4f6;
+            aspect-ratio: 4 / 3;
+            background: #f2f0eb;
+            overflow: hidden;
         }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-family: Arial, sans-serif;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid #a9762f;
+            color: #8a5f22;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .category-badge.none {
+            border-color: #d3cfc4;
+            color: #9b968a;
+        }
+
         .card-body {
-            padding: 14px 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             flex: 1;
         }
-        .card-body h3 {
-            margin: 0 0 6px 0;
-            font-size: 16px;
+
+        .brand {
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 11px;
+            color: #a9762f;
         }
-        .card-body p {
-            margin: 0;
+
+        .model {
+            font-size: 18px;
+            color: #1f1f1f;
+            margin: 0 0 4px;
+            line-height: 1.3;
+        }
+
+        .desc {
+            font-family: Arial, sans-serif;
             font-size: 13px;
-            color: #6b7280;
+            color: #7a766c;
+            line-height: 1.5;
+            margin: 0;
         }
-        .card-info {
+
+        .meta-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 10px 16px;
-            font-size: 13px;
-            border-top: 1px solid #f3f4f6;
+            align-items: baseline;
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid #efece5;
         }
-        .badge {
-            background: #16a34a;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
+
         .price {
-            background: #2563eb;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
+            font-size: 18px;
+            color: #1f1f1f;
+        }
+
+        .stock {
+            font-family: Arial, sans-serif;
             font-size: 12px;
+            color: #8a8676;
         }
-        .brand {
-            background: #2563eb;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-        .card-footer {
-            padding: 8px 16px;
-            font-size: 12px;
-            color: #9ca3af;
-            border-top: 1px solid #f3f4f6;
-        }
-        .view-btn {
-            display: block;
-            text-align: center;
-            background: #2563eb;
-            color: white;
-            padding: 10px;
-            font-size: 13px;
-            text-decoration: none;
-        }
-        .view-btn:hover {
-            background: #1e4fc4;
+
+        .stock.low {
+            color: #c15b3f;
         }
 
         .see-all {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 50px;
         }
+
         .see-all a {
+            font-family: Arial, sans-serif;
             display: inline-block;
-            background: #2563eb;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 6px;
+            background: transparent;
+            color: #a9762f;
+            border: 1px solid #a9762f;
+            padding: 12px 28px;
+            border-radius: 2px;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
         }
+
         .see-all a:hover {
-            background: #1e4fc4;
+            background: #a9762f;
+            color: #ffffff;
         }
 
         .empty-msg {
+            font-family: Arial, sans-serif;
             text-align: center;
-            color: #6b7280;
+            color: #9b968a;
             padding: 60px 0;
         }
 
@@ -182,12 +244,13 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
         @media (max-width: 600px) {
             nav {
-                padding: 14px 16px;
+                padding: 16px 18px;
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 8px;
+                gap: 10px;
             }
             nav .links {
                 flex-wrap: wrap;
@@ -195,13 +258,13 @@
             nav .links a,
             nav .links button {
                 margin-left: 0;
-                margin-right: 16px;
+                margin-right: 18px;
             }
             .grid {
                 grid-template-columns: 1fr;
             }
             h1 {
-                font-size: 22px;
+                font-size: 24px;
             }
         }
     </style>
@@ -245,32 +308,32 @@
             <div class="grid">
                 @foreach($watches as $watch)
                     <div class="card">
-                        @if($watch->image)
-                            <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}">
-                        @else
-                            <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image">
-                        @endif
+                        <div class="card-image">
+                            @if($watch->image)
+                                <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}">
+                            @else
+                                <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image">
+                            @endif
+
+                            @if ($watch->category)
+                                <span class="category-badge">{{ $watch->category->name }}</span>
+                            @else
+                                <span class="category-badge none">Uncategorized</span>
+                            @endif
+                        </div>
 
                         <div class="card-body">
-                            <h3>{{ $watch->model }}</h3>
-                            <p>{{ Str::limit($watch->description, 60) }}</p>
-                        </div>
-
-                        <div class="card-info">
-                            <span>Stock: <span class="badge">{{ $watch->stock }}</span></span>
-                            <span class="price">{{ $watch->price }} DH</span>
-                        </div>
-
-                        <div class="card-info">
-                            <span>Brand:</span>
                             <span class="brand">{{ $watch->brand }}</span>
-                        </div>
+                            <h3 class="model">{{ $watch->model }}</h3>
+                            <p class="desc">{{ Str::limit($watch->description, 60) }}</p>
 
-                        <div class="card-footer">
-                            {{ $watch->created_at->format('Y-m-d H:i:s') }}
+                            <div class="meta-row">
+                                <span class="price">{{ $watch->price }} DH</span>
+                                <span class="stock {{ $watch->stock <= 2 ? 'low' : '' }}">
+                                    {{ $watch->stock }} in stock
+                                </span>
+                            </div>
                         </div>
-
-                        <a href="{{ route('watches.show', $watch->id) }}" class="view-btn">View Details</a>
                     </div>
                 @endforeach
             </div>

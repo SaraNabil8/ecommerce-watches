@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
         * {
             box-sizing: border-box;
         }
-
         body {
             font-family: Arial, sans-serif;
             max-width: 1000px;
@@ -17,11 +15,9 @@
             padding: 0 15px;
             color: #333;
         }
-
         h2 {
             margin-bottom: 10px;
         }
-
         .add-btn {
             display: inline-block;
             background: #2563eb;
@@ -31,11 +27,9 @@
             text-decoration: none;
             margin-bottom: 20px;
         }
-
         .add-btn:hover {
             background: #1e4fc4;
         }
-
         .success-msg {
             background: #d1e7dd;
             color: #0f5132;
@@ -43,49 +37,39 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
-
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
         }
-
         table {
             width: 100%;
             min-width: 600px;
             border-collapse: collapse;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-
         thead {
             background: #f1f5f9;
         }
-
-        th,
-        td {
+        th, td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
-
         tbody tr:hover {
             background: #f9fafb;
         }
-
         img {
             border-radius: 6px;
             object-fit: cover;
         }
-
         .actions a {
             margin-right: 10px;
             text-decoration: none;
             color: #2563eb;
         }
-
         .actions form {
             display: inline;
         }
-
         .actions button {
             border: none;
             background: none;
@@ -94,7 +78,6 @@
             padding: 0;
             font-size: 14px;
         }
-
         .empty-row {
             text-align: center;
             color: #6b7280;
@@ -106,41 +89,27 @@
             body {
                 margin: 20px auto;
             }
-
             h2 {
                 font-size: 20px;
             }
-
             .add-btn {
                 display: block;
                 text-align: center;
             }
-
-            th,
-            td {
+            th, td {
                 padding: 8px;
                 font-size: 14px;
             }
         }
-        .category-badge {
-    background: #2563eb;
-    color: white;
-    padding: 2px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    display: inline-block;
-    ali
-}
     </style>
 </head>
-
 <body>
 
-    <h2>Watches List</h2>
+    <h2>Categories List </h2>
 
-    <a href="{{ route('watches.create') }}" class="add-btn">+ Add a Watch</a>
+    <a href="{{ route('categories.create') }}" class="add-btn">+ Add a Category</a>
 
-    @if (session('success'))
+    @if(session('success'))
         <div class="success-msg">
             {{ session('success') }}
         </div>
@@ -151,43 +120,21 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Image</th>
-                    <th>Model</th>
-                    <th>Brand</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
+                    <th>Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($watches as $watch)
+                @forelse($categories as $category)
                     <tr>
-                        <td>{{ $watch->id }}</td>
-                        <td>
-                            @if ($watch->image)
-                                <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}"
-                                    width="60" height="60">
-                            @else
-                                —
-                            @endif
-                        </td>
-                        <td>{{ $watch->model }}</td>
-                        <td>{{ $watch->brand }}</td>
-                        <td style="text-align: center;">
-                            @if ($watch->category)
-                                <span class="category-badge">{{ $watch->category->name }}</span>
-                            @else
-                                <span style="color:#9ca3af;">-</span>
-                            @endif
-                        </td>
-                        <td>{{ $watch->price }} DH</td>
-                        <td>{{ $watch->stock }}</td>
+                        <td>{{ $category->id }}</td>
+                      
+                        <td>{{ $category->name }}</td>
+                     
                         <td class="actions">
-                            <a href="{{ route('watches.show', $watch->id) }}">View</a>
-                            <a href="{{ route('watches.edit', $watch->id) }}">Edit</a>
-                            <form action="{{ route('watches.destroy', $watch->id) }}" method="POST"
-                                onsubmit="return confirm('Delete this watch?')">
+                            <a href="{{ route('categories.show', $category) }}">Show</a>
+                            <a href="{{ route('categories.edit', $category) }}">Edit</a>
+                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Delete this category?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">Delete</button>
@@ -196,7 +143,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="empty-row">No watches found.</td>
+                        <td colspan="7" class="empty-row">No categories found.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -204,5 +151,4 @@
     </div>
 
 </body>
-
 </html>

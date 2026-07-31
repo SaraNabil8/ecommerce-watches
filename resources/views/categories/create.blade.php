@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Watch</title>
+    <title>Add a Watch</title>
     <style>
         * {
             box-sizing: border-box;
@@ -63,14 +63,8 @@
         textarea {
             resize: vertical;
         }
-        .current-image img {
-            width: 100px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            display: block;
-        }
         button {
-            background: #f59e0b;
+            background: #2563eb;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -80,9 +74,10 @@
             width: 100%;
         }
         button:hover {
-            background: #d97f06;
+            background: #1e4fc4;
         }
 
+        /* Responsive : petits écrans (mobile) */
         @media (max-width: 600px) {
             body {
                 margin: 20px auto;
@@ -98,9 +93,9 @@
 </head>
 <body>
 
-    <h2>Edit Watch</h2>
+    <h2>Add a Category</h2>
 
-    <a href="{{ route('watches.index') }}" class="back-link">← Back to list</a>
+    <a href="{{ route('categories.index') }}" class="back-link">← Back to list</a>
 
     @if ($errors->any())
         <div class="error-box">
@@ -112,58 +107,17 @@
         </div>
     @endif
 
-    <form action="{{ route('watches.update', $watch->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
 
         <div class="field">
-            <label>Model</label>
-            <input type="text" name="model" value="{{ old('model', $watch->model) }}">
+            <label>Name </label>
+            <input type="text" name="name" value="{{ old('name') }}">
         </div>
 
-        <div class="field">
-            <label>Brand</label>
-            <input type="text" name="brand" value="{{ old('brand', $watch->brand) }}">
-        </div>
+    
 
-        <div class="field">
-            <label>Price</label>
-            <input type="number" step="0.01" min="0" name="price" value="{{ old('price', $watch->price) }}">
-        </div>
-
-        <div class="field">
-            <label>Stock</label>
-            <input type="number" min="0" name="stock" value="{{ old('stock', $watch->stock) }}">
-        </div>
-
-        <div class="field">
-            <label>Description</label>
-            <textarea name="description" rows="4">{{ old('description', $watch->description) }}</textarea>
-        </div>
-         <div class="field">
-            <label>Category</label>
-      <select name="category_id" id="category_id" class="form-select">
-    <option value="">Please choose your category</option>
-    @foreach ($categories as $category)
-        <option value="{{ $category->id }}" @selected(old('category_id', $watch->category_id) == $category->id)>
-            {{ $category->name }}
-        </option>
-    @endforeach
-</select>
-        </div>
-
-        <div class="field">
-            @if($watch->image)
-                <div class="current-image">
-                    <label>Current Image</label>
-                    <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}">
-                </div>
-            @endif
-            <label>Change Image (optional)</label>
-            <input type="file" name="image">
-        </div>
-
-        <button type="submit">Update</button>
+        <button type="submit">Save</button>
 
     </form>
 
