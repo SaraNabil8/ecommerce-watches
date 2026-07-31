@@ -216,7 +216,12 @@
 
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ route('watches.index') }}">Dashboard</a>
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+
+                    @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
+                        <a href="{{ route('watches.index') }}">Manage Watches</a>
+                    @endif
+
                     <a href="{{ route('profile.edit') }}">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

@@ -119,6 +119,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Image</th>
                     <th>Model</th>
                     <th>Brand</th>
@@ -130,9 +131,10 @@
             <tbody>
                 @forelse($watches as $watch)
                     <tr>
+                        <td>{{ $watch->id }}</td>
                         <td>
                             @if($watch->image)
-                                <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->name }}" width="60" height="60">
+                                <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}" width="60" height="60">
                             @else
                                 —
                             @endif
@@ -153,7 +155,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="empty-row">No watches found.</td>
+                        <td colspan="7" class="empty-row">No watches found.</td>
                     </tr>
                 @endforelse
             </tbody>
