@@ -132,7 +132,8 @@
                         <td>{{ $category->name }}</td>
                      
                         <td class="actions">
-                            <a href="{{ route('categories.show', $category) }}">Show</a>
+                            
+                            <a href="{{ route('categories.show', $category->id) }}">Show</a>
                             <a href="{{ route('categories.edit', $category) }}">Edit</a>
                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Delete this category?')">
                                 @csrf

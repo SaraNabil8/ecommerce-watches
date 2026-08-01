@@ -1,5 +1,5 @@
 <?php
-
+/*
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
 });
 //ADMIN 
 Route::middleware('admin')->group(function () {
- 
+ Route::resource('categories', CategoryController::class);
     Route::resource('watches', WatchController::class);
     //categories a ajouter plus tard 
     Route::get('/admin/dashboard', function () {
@@ -65,4 +65,50 @@ Route::middleware('editor')->group(function () {
 });
 
 
+require __DIR__.'/auth.php';*/
+
+
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WatchController;
+use Illuminate\Support\Facades\Route;
+
+// Pages publiques
+Route::get('/', [WatchController::class, 'home'])->name('home');
+Route::get('/categories', [WatchController::class, 'categories'])->name('categories');
+Route::get('/watches/{watch}', [WatchController::class, 'show'])->name('watches.show');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+
+// Dashboard Breeze standard
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Profil (tout utilisateur connecté)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Gestion (admin uniquement)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('watches', WatchController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class)->except(['show']);
+
+    Route::get('/admin/dashboard', function () {
+        return 'Hi Administrator';
+    })->name('admin_dashboard');
+});
+
+// Gestion (editor)
+Route::middleware(['auth', 'editor'])->group(function () {
+        Route::resource('watches', WatchController::class)->except(['show', 'destroy']);
+    Route::resource('categories', CategoryController::class)->except(['show', 'destroy']);
+    Route::get('/editor/dashboard', function () {
+        return 'Hi Editor';
+    })->name('editor_dashboard');
+});
+
 require __DIR__.'/auth.php';
+?>

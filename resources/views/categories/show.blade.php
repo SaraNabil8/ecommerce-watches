@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch Details</title>
+    <title>{{ $category->name }} Watches</title>
     <style>
         * {
             box-sizing: border-box;
         }
         body {
             font-family: Arial, sans-serif;
-            max-width: 700px;
+            max-width: 1000px;
             margin: 40px auto;
             padding: 0 15px;
             color: #333;
@@ -24,79 +24,99 @@
             color: #2563eb;
             text-decoration: none;
         }
-        .card {
-            background: #f9fafb;
-            padding: 20px;
-            border-radius: 8px;
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .card img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 8px;
-            display: block;
-            margin-bottom: 20px;
+        thead {
+            background: #f1f5f9;
         }
-        .row {
-            margin-bottom: 12px;
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
         }
-        .row strong {
-            display: inline-block;
-            width: 120px;
+        tbody tr:hover {
+            background: #f9fafb;
         }
-        .actions {
-            margin-top: 20px;
+        img {
+            border-radius: 6px;
+            object-fit: cover;
         }
         .actions a {
-            display: inline-block;
             margin-right: 10px;
-            padding: 8px 16px;
-            border-radius: 5px;
             text-decoration: none;
+            color: #2563eb;
         }
-        .edit-btn {
-            background: #f59e0b;
-            color: white;
-        }
-        .delete-btn {
-            background: #dc2626;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
+        .empty-row {
+            text-align: center;
+            color: #6b7280;
+            padding: 20px;
         }
 
         @media (max-width: 600px) {
             body {
                 margin: 20px auto;
             }
-            .card {
-                padding: 15px;
+            h2 {
+                font-size: 20px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
 
-    <h2>Category Details</h2>
+    <a href="{{ route('categories.index') }}" class="back-link">← Back to categories</a>
 
-    <a href="{{ route('categories.index') }}" class="back-link">← Back to list</a>
+    <h2>{{ $category->name }} </h2>
 
-    
-        <div class="row">
-            <strong>Name:</strong> {{ $category->name }}
-        </div>
-
-
-        <div class="actions">
-            <a href="{{ route('categories.edit', $category->id) }}" class="edit-btn">Edit</a>
-            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline" onsubmit="return confirm('Delete this Category?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="delete-btn">Delete</button>
-            </form>
-        </div>
-
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Model</th>
+                    <th>Brand</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($watches as $watch)
+                    <tr>
+                        <td>
+                            @if($watch->image)
+                                <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}" width="60" height="60">
+                            @else
+                                —
+                            @endif
+                        </td>
+                        <td>{{ $watch->model }}</td>
+                        <td>{{ $watch->brand }}</td>
+                        <td>{{ $watch->price }} DH</td>
+                        <td>{{ $watch->stock }}</td>
+                        <td class="actions">
+                            <a href="{{ route('watches.show', $watch->id) }}">View</a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="empty-row">No watches in this category yet.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 
 </body>

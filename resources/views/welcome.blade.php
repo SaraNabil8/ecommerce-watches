@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -252,31 +253,35 @@
                 align-items: flex-start;
                 gap: 10px;
             }
+
             nav .links {
                 flex-wrap: wrap;
             }
+
             nav .links a,
             nav .links button {
                 margin-left: 0;
                 margin-right: 18px;
             }
+
             .grid {
                 grid-template-columns: 1fr;
             }
+
             h1 {
                 font-size: 24px;
             }
         }
     </style>
 </head>
+
 <body>
 
     <nav>
         <div class="logo">⌚ Watches Shop</div>
         <div class="links">
             <a href="{{ route('home') }}" class="active">Home</a>
-            <a href="{{ route('categories') }}">Categories</a>
-
+            <a href="{{ route('categories.index') }}">Categories</a>
             @if (Route::has('login'))
                 @auth
                     <a href="{{ route('dashboard') }}">Dashboard</a>
@@ -304,12 +309,12 @@
     <div class="container">
         <h1>Last Watches</h1>
 
-        @if($watches->count() > 0)
+        @if ($watches->count() > 0)
             <div class="grid">
-                @foreach($watches as $watch)
+                @foreach ($watches as $watch)
                     <div class="card">
                         <div class="card-image">
-                            @if($watch->image)
+                            @if ($watch->image)
                                 <img src="{{ asset('storage/' . $watch->image) }}" alt="{{ $watch->model }}">
                             @else
                                 <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image">
@@ -339,7 +344,7 @@
             </div>
 
             <div class="see-all">
-                <a href="{{ route('categories') }}">See All Categories</a>
+                <a href="{{ route('categories.index') }}">See All Categories</a>
             </div>
         @else
             <div class="empty-msg">No watches available yet.</div>
@@ -347,4 +352,5 @@
     </div>
 
 </body>
+
 </html>

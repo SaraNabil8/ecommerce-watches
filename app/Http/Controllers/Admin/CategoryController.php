@@ -49,12 +49,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(category $category)
+public function show(Category $category)
 {
-        $watches = $category->watches; 
-
+    $watches = $category->watches;
     return view('categories.show', compact('category', 'watches'));
-
 }
 
 

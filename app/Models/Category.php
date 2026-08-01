@@ -8,4 +8,8 @@ class Category extends Model
 {
     //use SoftDeletes;
 protected $fillable = ['name'];
+public function watches()
+{
+    return $this->hasMany(Watch::class);
+}
 }
